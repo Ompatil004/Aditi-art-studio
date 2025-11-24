@@ -10,11 +10,34 @@ const Shop = () => {
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [quantities, setQuantities] = useState({});
+  const [addedToCart, setAddedToCart] = useState({});
+
+  const updateQuantity = (productId, amount) => {
+    setQuantities(prev => {
+      const newQty = Math.max(1, (prev[productId] || 1) + amount);
+      return { ...prev, [productId]: newQty };
+    });
+  };
+
+  const resetQuantity = (productId) => {
+    setQuantities(prev => {
+      const newQuantities = { ...prev };
+      delete newQuantities[productId];
+      return newQuantities;
+    });
+  };
 
   const handleAddToCart = (product) => {
-    addToCart(product);
-    setToastMessage(`${product.name} added to cart!`);
+    const qty = quantities[product.id] || 1;
+    // Add the product multiple times according to the selected quantity
+    for (let i = 0; i < qty; i++) {
+      addToCart(product);
+    }
+    setToastMessage(`${qty} x ${product.name} added to cart!`);
     setShowToast(true);
+    resetQuantity(product.id); // Reset quantity after adding to cart
+    setAddedToCart(prev => ({ ...prev, [product.id]: true })); // Mark product as added to cart
     // Auto-hide the toast after 3 seconds
     setTimeout(() => setShowToast(false), 3000);
   };
@@ -114,14 +137,61 @@ const Shop = () => {
                             {product.description ? product.description.substring(0, 100) + '...' : 'Beautiful hand-painted artwork'}
                           </Card.Text>
                           <div className="mt-auto">
-                            <div className="d-flex justify-content-between align-items-center">
+                            <div className="d-flex align-items-center justify-content-between mb-2">
                               <span className="h5 text-primary">{product.price}</span>
+                            </div>
+                            <div className="d-flex align-items-center justify-content-between">
+                              <div className="d-flex align-items-center">
+                                <Button
+                                  variant="outline-secondary"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    updateQuantity(product.id, -1);
+                                  }}
+                                  style={{
+                                    borderRadius: '50%',
+                                    width: '30px',
+                                    height: '30px',
+                                    padding: '0',
+                                    fontSize: '0.9rem'
+                                  }}
+                                >
+                                  -
+                                </Button>
+                                <span className="mx-2">
+                                  {quantities[product.id] || 1}
+                                </span>
+                                <Button
+                                  variant="outline-secondary"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    updateQuantity(product.id, 1);
+                                  }}
+                                  style={{
+                                    borderRadius: '50%',
+                                    width: '30px',
+                                    height: '30px',
+                                    padding: '0',
+                                    fontSize: '0.9rem'
+                                  }}
+                                >
+                                  +
+                                </Button>
+                              </div>
                               <Button
-                                variant="outline-primary"
+                                variant={addedToCart[product.id] ? "primary" : "outline-primary"}
                                 size="sm"
-                                onClick={() => handleAddToCart(product)}
+                                onClick={() => {
+                                  if (addedToCart[product.id]) {
+                                    window.location.href = '/cart';
+                                  } else {
+                                    handleAddToCart(product);
+                                  }
+                                }}
                               >
-                                Add to Cart
+                                {addedToCart[product.id] ? 'Go to Cart' : 'Add to Cart'}
                               </Button>
                             </div>
                           </div>
@@ -160,14 +230,61 @@ const Shop = () => {
                                   {product.description ? product.description.substring(0, 100) + '...' : 'Beautiful hand-painted artwork'}
                                 </Card.Text>
                                 <div className="mt-auto">
-                                  <div className="d-flex justify-content-between align-items-center">
+                                  <div className="d-flex align-items-center justify-content-between mb-2">
                                     <span className="h5 text-primary">{product.price}</span>
+                                  </div>
+                                  <div className="d-flex align-items-center justify-content-between">
+                                    <div className="d-flex align-items-center">
+                                      <Button
+                                        variant="outline-secondary"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          updateQuantity(product.id, -1);
+                                        }}
+                                        style={{
+                                          borderRadius: '50%',
+                                          width: '30px',
+                                          height: '30px',
+                                          padding: '0',
+                                          fontSize: '0.9rem'
+                                        }}
+                                      >
+                                        -
+                                      </Button>
+                                      <span className="mx-2">
+                                        {quantities[product.id] || 1}
+                                      </span>
+                                      <Button
+                                        variant="outline-secondary"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          updateQuantity(product.id, 1);
+                                        }}
+                                        style={{
+                                          borderRadius: '50%',
+                                          width: '30px',
+                                          height: '30px',
+                                          padding: '0',
+                                          fontSize: '0.9rem'
+                                        }}
+                                      >
+                                        +
+                                      </Button>
+                                    </div>
                                     <Button
-                                      variant="outline-primary"
+                                      variant={addedToCart[product.id] ? "primary" : "outline-primary"}
                                       size="sm"
-                                      onClick={() => handleAddToCart(product)}
+                                      onClick={() => {
+                                        if (addedToCart[product.id]) {
+                                          window.location.href = '/cart';
+                                        } else {
+                                          handleAddToCart(product);
+                                        }
+                                      }}
                                     >
-                                      Add to Cart
+                                      {addedToCart[product.id] ? 'Go to Cart' : 'Add to Cart'}
                                     </Button>
                                   </div>
                                 </div>

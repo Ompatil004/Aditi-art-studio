@@ -12,11 +12,34 @@ const CategoryPage = () => {
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [quantities, setQuantities] = useState({});
+  const [addedToCart, setAddedToCart] = useState({});
+
+  const updateQuantity = (productId, amount) => {
+    setQuantities(prev => {
+      const newQty = Math.max(1, (prev[productId] || 1) + amount);
+      return { ...prev, [productId]: newQty };
+    });
+  };
+
+  const resetQuantity = (productId) => {
+    setQuantities(prev => {
+      const newQuantities = { ...prev };
+      delete newQuantities[productId];
+      return newQuantities;
+    });
+  };
 
   const handleAddToCart = (product) => {
-    addToCart(product);
-    setToastMessage(`${product.name} added to cart!`);
+    const qty = quantities[product.id] || 1;
+    // Add the product multiple times according to the selected quantity
+    for (let i = 0; i < qty; i++) {
+      addToCart(product);
+    }
+    setToastMessage(`${qty} x ${product.name} added to cart!`);
     setShowToast(true);
+    resetQuantity(product.id); // Reset quantity after adding to cart
+    setAddedToCart(prev => ({ ...prev, [product.id]: true })); // Mark product as added to cart
     // Auto-hide the toast after 3 seconds
     setTimeout(() => setShowToast(false), 3000);
   };
@@ -151,17 +174,65 @@ const CategoryPage = () => {
                       {product.price} {/* Price already formatted as string with currency */}
                     </Card.Text>
                     <div className="mt-auto">
+                      <div className="d-flex align-items-center justify-content-between mb-2">
+                        <div className="d-flex align-items-center">
+                          <Button
+                            variant="outline-secondary"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              updateQuantity(product.id, -1);
+                            }}
+                            style={{
+                              borderRadius: '50%',
+                              width: '30px',
+                              height: '30px',
+                              padding: '0',
+                              fontSize: '0.9rem'
+                            }}
+                          >
+                            -
+                          </Button>
+                          <span className="mx-2" style={{ color: theme.text }}>
+                            {quantities[product.id] || 1}
+                          </span>
+                          <Button
+                            variant="outline-secondary"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              updateQuantity(product.id, 1);
+                            }}
+                            style={{
+                              borderRadius: '50%',
+                              width: '30px',
+                              height: '30px',
+                              padding: '0',
+                              fontSize: '0.9rem'
+                            }}
+                          >
+                            +
+                          </Button>
+                        </div>
+                      </div>
                       <Button
                         style={{
-                          backgroundColor: theme.accent,
-                          borderColor: theme.accent,
+                          backgroundColor: addedToCart[product.id] ? theme.highlight : theme.accent,
+                          borderColor: addedToCart[product.id] ? theme.highlight : theme.accent,
                           color: theme.text,
                           borderRadius: '30px',
                           width: '100%'
                         }}
-                        onClick={() => handleAddToCart(product)}
+                        onClick={() => {
+                          if (addedToCart[product.id]) {
+                            // If product was added, navigate to cart
+                            window.location.href = '/cart';
+                          } else {
+                            handleAddToCart(product);
+                          }
+                        }}
                       >
-                        Add to Cart
+                        {addedToCart[product.id] ? 'Go to Cart' : 'Add to Cart'}
                       </Button>
                     </div>
                   </Card.Body>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const CartContext = createContext();
 
@@ -55,8 +55,32 @@ const cartReducer = (state, action) => {
   }
 };
 
+// Load cart items from localStorage on initial load
+const loadCartFromStorage = () => {
+  try {
+    const serializedState = localStorage.getItem('cartState');
+    if (serializedState === null) {
+      return { items: [] };
+    }
+    return JSON.parse(serializedState);
+  } catch (error) {
+    console.error('Error loading cart from storage', error);
+    return { items: [] };
+  }
+};
+
+// Save cart items to localStorage whenever state changes
+const saveCartToStorage = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('cartState', serializedState);
+  } catch (error) {
+    console.error('Error saving cart to storage', error);
+  }
+};
+
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const [state, dispatch] = useReducer(cartReducer, loadCartFromStorage());
 
   const addToCart = (item) => {
     dispatch({ type: 'ADD_TO_CART', payload: item });
@@ -88,6 +112,11 @@ export const CartProvider = ({ children }) => {
       return total + (itemPrice * item.quantity);
     }, 0);
   };
+
+  // Effect to save cart to localStorage whenever items change
+  useEffect(() => {
+    saveCartToStorage(state);
+  }, [state]);
 
   return (
     <CartContext.Provider
