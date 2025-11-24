@@ -1,4 +1,25 @@
 // Local data for the Art Studio application with image references
+const paithani1 = "/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0006.jpg";
+const paithani2 = "/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0009.jpg";
+const paithani3 = "/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0012.jpg";
+const paithani4 = "/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0018.jpg";
+const canvas1 = "/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg";
+const canvas2 = "/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg";
+const texture1 = "/products/Texture_Wall_Art/IMG-20250924-WA0007.jpg";
+const texture2 = "/products/Texture_Wall_Art/IMG-20250924-WA0010.jpg";
+const texture3 = "/products/Texture_Wall_Art/IMG-20250924-WA0014.jpg";
+const texture4 = "/products/Texture_Wall_Art/IMG-20250924-WA0017.jpg";
+const gift1 = "/products/Gifting_Options/IMG-20250924-WA0005.jpg";
+const gift2 = "/products/Gifting_Options/IMG-20250924-WA0011.jpg";
+const gift3 = "/products/Gifting_Options/IMG-20250924-WA0013.jpg";
+
+export {
+  paithani1, paithani2, paithani3, paithani4,
+  canvas1, canvas2,
+  texture1, texture2, texture3, texture4,
+  gift1, gift2, gift3
+};
+
 export const localCategories = [
   {
     id: 1,
