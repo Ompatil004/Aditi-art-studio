@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Toast } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import { useCategories } from '../context/CategoriesContext';
@@ -9,6 +9,7 @@ const CategoryPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
   const { categories } = useCategories(); // Use categories from context
+  const navigate = useNavigate();
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -118,7 +119,7 @@ const CategoryPage = () => {
                     cursor: 'pointer'
                   }}
                   className="h-100"
-                  onClick={() => window.location.href = `/subcategory/${subCategory.id}`}
+                  onClick={() => navigate(`/subcategory/${subCategory.id}`)}
                 >
                   <Card.Body className="d-flex flex-column align-items-center justify-content-center text-center">
                     <Card.Title style={{ color: theme.text, fontFamily: 'serif', fontSize: '1.2rem' }}>
@@ -225,8 +226,8 @@ const CategoryPage = () => {
                         }}
                         onClick={() => {
                           if (addedToCart[product.id]) {
-                            // If product was added, navigate to cart
-                            window.location.href = '/cart';
+                            // If product was added, navigate to cart (client-side)
+                            navigate('/cart');
                           } else {
                             handleAddToCart(product);
                           }
