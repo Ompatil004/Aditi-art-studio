@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Toast } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import { useCategories } from '../context/CategoriesContext';
 import theme from '../theme/theme';
@@ -9,6 +9,17 @@ const SubCategoryPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
   const { categories } = useCategories(); // Use categories from context
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setToastMessage(`${product.name} added to cart!`);
+    setShowToast(true);
+    // Auto-hide the toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+  };
   
   // Find the subcategory by ID across all categories
   let subCategory = null;
@@ -87,15 +98,15 @@ const SubCategoryPage = () => {
                   {product.price || 'Price on request'}
                 </Card.Text>
                 <div className="mt-auto">
-                  <Button 
-                    style={{ 
-                      backgroundColor: theme.accent, 
+                  <Button
+                    style={{
+                      backgroundColor: theme.accent,
                       borderColor: theme.accent,
                       color: theme.text,
                       borderRadius: '30px',
                       width: '100%'
                     }}
-                    onClick={() => addToCart(product)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     Add to Cart
                   </Button>
@@ -120,6 +131,27 @@ const SubCategoryPage = () => {
           Back to Category
         </Button>
       </div>
+      {/* Toast notification for add to cart */}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        delay={3000}
+        autohide
+        style={{
+          position: 'fixed',
+          top: 20,
+          right: 20,
+          zIndex: 1000,
+          minWidth: '250px'
+        }}
+      >
+        <Toast.Header style={{ backgroundColor: theme.accent, color: theme.text }}>
+          <strong className="me-auto">Cart Update</strong>
+        </Toast.Header>
+        <Toast.Body style={{ backgroundColor: theme.card, color: theme.text }}>
+          {toastMessage}
+        </Toast.Body>
+      </Toast>
     </Container>
   );
 };

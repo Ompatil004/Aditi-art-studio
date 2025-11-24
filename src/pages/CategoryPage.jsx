@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Toast } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import { useCategories } from '../context/CategoriesContext';
 import theme from '../theme/theme';
@@ -9,6 +9,17 @@ const CategoryPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
   const { categories } = useCategories(); // Use categories from context
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setToastMessage(`${product.name} added to cart!`);
+    setShowToast(true);
+    // Auto-hide the toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+  };
   
   const categoryId = isNaN(id) ? id : parseInt(id);
   const category = categories.find(cat => cat.id == categoryId); // Using == to handle both string and number comparisons
@@ -116,9 +127,9 @@ const CategoryPage = () => {
           <Row xs={1} sm={2} md={3} lg={4} className="g-4">
             {products.map((product) => (
               <Col key={product.id}>
-                <Card 
-                  style={{ 
-                    height: '100%', 
+                <Card
+                  style={{
+                    height: '100%',
                     borderRadius: '10px',
                     boxShadow: `0 4px 8px ${theme.shadow}`,
                     border: `1px solid ${theme.border}`,
@@ -127,10 +138,10 @@ const CategoryPage = () => {
                   }}
                   className="h-100"
                 >
-                  <Card.Img 
-                    variant="top" 
-                    src={product.image} 
-                    style={{ height: '200px', objectFit: 'cover' }} 
+                  <Card.Img
+                    variant="top"
+                    src={product.image}
+                    style={{ height: '200px', objectFit: 'cover' }}
                   />
                   <Card.Body className="d-flex flex-column">
                     <Card.Title style={{ color: theme.text, fontFamily: 'serif' }}>
@@ -140,15 +151,15 @@ const CategoryPage = () => {
                       {product.price} {/* Price already formatted as string with currency */}
                     </Card.Text>
                     <div className="mt-auto">
-                      <Button 
-                        style={{ 
-                          backgroundColor: theme.accent, 
+                      <Button
+                        style={{
+                          backgroundColor: theme.accent,
                           borderColor: theme.accent,
                           color: theme.text,
                           borderRadius: '30px',
                           width: '100%'
                         }}
-                        onClick={() => addToCart(product)}
+                        onClick={() => handleAddToCart(product)}
                       >
                         Add to Cart
                       </Button>
@@ -160,11 +171,11 @@ const CategoryPage = () => {
           </Row>
         </div>
       )}
-      
+
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <Button 
-          style={{ 
-            backgroundColor: theme.accent, 
+        <Button
+          style={{
+            backgroundColor: theme.accent,
             borderColor: theme.accent,
             color: theme.text,
             borderRadius: '30px'
@@ -175,6 +186,28 @@ const CategoryPage = () => {
           Back to Home
         </Button>
       </div>
+
+      {/* Toast notification for add to cart */}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        delay={3000}
+        autohide
+        style={{
+          position: 'fixed',
+          top: 20,
+          right: 20,
+          zIndex: 1000,
+          minWidth: '250px'
+        }}
+      >
+        <Toast.Header style={{ backgroundColor: theme.accent, color: theme.text }}>
+          <strong className="me-auto">Cart Update</strong>
+        </Toast.Header>
+        <Toast.Body style={{ backgroundColor: theme.card, color: theme.text }}>
+          {toastMessage}
+        </Toast.Body>
+      </Toast>
     </Container>
   );
 };

@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Spinner, Toast } from 'react-bootstrap';
 import { useCategories } from '../context/CategoriesContext';
+import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
 const Shop = () => {
   const { categories, loading, error } = useCategories();
+  const { addToCart } = useCart();
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setToastMessage(`${product.name} added to cart!`);
+    setShowToast(true);
+    // Auto-hide the toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   if (loading) {
     return (
@@ -103,12 +116,12 @@ const Shop = () => {
                           <div className="mt-auto">
                             <div className="d-flex justify-content-between align-items-center">
                               <span className="h5 text-primary">{product.price}</span>
-                              <Button 
-                                variant="outline-primary" 
+                              <Button
+                                variant="outline-primary"
                                 size="sm"
-                                disabled={true} // Temporarily disabled since we don't have individual product pages
+                                onClick={() => handleAddToCart(product)}
                               >
-                                View Details
+                                Add to Cart
                               </Button>
                             </div>
                           </div>
@@ -149,12 +162,12 @@ const Shop = () => {
                                 <div className="mt-auto">
                                   <div className="d-flex justify-content-between align-items-center">
                                     <span className="h5 text-primary">{product.price}</span>
-                                    <Button 
-                                      variant="outline-primary" 
+                                    <Button
+                                      variant="outline-primary"
                                       size="sm"
-                                      disabled={true} // Temporarily disabled since we don't have individual product pages
+                                      onClick={() => handleAddToCart(product)}
                                     >
-                                      View Details
+                                      Add to Cart
                                     </Button>
                                   </div>
                                 </div>
@@ -171,6 +184,27 @@ const Shop = () => {
           </div>
         );
       })}
+      {/* Toast notification for add to cart */}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        delay={3000}
+        autohide
+        style={{
+          position: 'fixed',
+          top: 20,
+          right: 20,
+          zIndex: 1000,
+          minWidth: '250px'
+        }}
+      >
+        <Toast.Header style={{ backgroundColor: '#80A1D4', color: '#333333' }}>
+          <strong className="me-auto">Cart Update</strong>
+        </Toast.Header>
+        <Toast.Body style={{ backgroundColor: '#F7F4EA', color: '#333333' }}>
+          {toastMessage}
+        </Toast.Body>
+      </Toast>
     </Container>
   );
 };

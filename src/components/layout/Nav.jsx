@@ -35,51 +35,62 @@ const Navigation = () => {
       style={{
         backgroundColor: theme.primary,
         padding: '0.5rem 0',
-        boxShadow: `0 2px 10px ${theme.shadow}`
+        boxShadow: `0 2px 10px ${theme.shadow}`,
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)'
       }}
     >
-      <Container>
-        {showBackButton && (
-          <Button
-            onClick={goBack}
-            style={{
-              backgroundColor: theme.accent,
-              borderColor: theme.accent,
-              color: theme.text,
-              borderRadius: '50%',
-              width: '40px',
-              height: '40px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginRight: '10px'
-            }}
-          >
-            <FaArrowLeft />
-          </Button>
-        )}
-
+      <Container fluid="xxl">
         <Navbar.Brand as={Link} to="/" style={{ display: 'flex', alignItems: 'center' }}>
           <img
             src={logo}
             alt="Logo"
-            style={{ height: '50px', marginRight: '10px' }}
+            style={{ height: '40px', marginRight: '10px' }}
+            className="img-fluid"
           />
-          <span style={{ color: theme.textLight, fontWeight: 'bold', fontSize: '1.5rem' }}>
+          <span style={{ color: theme.textLight, fontWeight: 'bold', fontSize: '1.2rem' }}>
             Aditi Art Studio
           </span>
         </Navbar.Brand>
 
-        <Navbar.Toggle
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            backgroundColor: theme.accent,
-            borderColor: theme.accent
-          }}
-        />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {showBackButton && (
+            <Button
+              onClick={goBack}
+              style={{
+                backgroundColor: theme.accent,
+                borderColor: theme.accent,
+                color: theme.text,
+                borderRadius: '50%',
+                width: '35px',
+                height: '35px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '0'
+              }}
+              size="sm"
+            >
+              <FaArrowLeft size={12} />
+            </Button>
+          )}
 
-        <Navbar.Collapse in={isOpen}>
-          <BootstrapNav className="me-auto">
+          <Navbar.Toggle
+            onClick={() => setIsOpen(!isOpen)}
+            style={{
+              backgroundColor: theme.accent,
+              borderColor: theme.accent,
+              padding: '0.25rem',
+              borderRadius: '4px'
+            }}
+            aria-controls="basic-navbar-nav"
+          >
+            <span style={{ color: theme.text, fontSize: '1.2rem' }}>☰</span>
+          </Navbar.Toggle>
+        </div>
+
+        <Navbar.Collapse id="basic-navbar-nav" in={isOpen}>
+          <BootstrapNav className="ms-auto me-3">
             {navItems.map((item, index) => (
               <BootstrapNav.Link
                 key={index}
@@ -87,9 +98,13 @@ const Navigation = () => {
                 to={item.path}
                 style={{
                   color: theme.textLight,
-                  margin: '0 10px',
-                  fontWeight: '500'
+                  margin: '0 5px',
+                  fontWeight: '500',
+                  fontSize: '0.9rem',
+                  padding: '8px 12px',
+                  borderRadius: '4px'
                 }}
+                onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </BootstrapNav.Link>
@@ -99,8 +114,7 @@ const Navigation = () => {
               title="Categories"
               id="categories-dropdown"
               style={{
-                color: theme.textLight,
-                margin: '0 10px'
+                margin: '0 5px'
               }}
             >
               {allCategories.map((category, index) => (
@@ -122,6 +136,7 @@ const Navigation = () => {
                       color: theme.text,
                       fontWeight: '500'
                     }}
+                    onClick={() => setIsOpen(false)}
                   >
                     All {category.name}
                   </NavDropdown.Item>
@@ -138,6 +153,7 @@ const Navigation = () => {
                             color: theme.text,
                             paddingLeft: '30px'
                           }}
+                          onClick={() => setIsOpen(false)}
                         >
                           {subCategory.name}
                         </NavDropdown.Item>
@@ -157,25 +173,28 @@ const Navigation = () => {
                 color: theme.textLight,
                 position: 'relative',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                padding: '8px'
               }}
+              onClick={() => setIsOpen(false)}
             >
               <FaShoppingCart size={20} />
               {getTotalItems() > 0 && (
                 <span style={{
                   position: 'absolute',
-                  top: '-5px',
-                  right: '-5px',
+                  top: '0px',
+                  right: '0px',
                   backgroundColor: theme.accent,
                   color: theme.text,
                   borderRadius: '50%',
-                  width: '20px',
-                  height: '20px',
+                  width: '18px',
+                  height: '18px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '0.75rem',
-                  fontWeight: 'bold'
+                  fontSize: '0.65rem',
+                  fontWeight: 'bold',
+                  transform: 'translate(20%, -20%)'
                 }}>
                   {getTotalItems()}
                 </span>
