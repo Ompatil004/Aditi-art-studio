@@ -1,17 +1,31 @@
 // Local data for the Art Studio application with image references
+import paithani1 from '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0006.jpg';
+import paithani2 from '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0009.jpg';
+import paithani3 from '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0012.jpg';
+import paithani4 from '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0018.jpg';
+import canvas1 from '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg';
+import canvas2 from '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg';
+import texture1 from '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0007.jpg';
+import texture2 from '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0010.jpg';
+import texture3 from '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0014.jpg';
+import texture4 from '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0017.jpg';
+import gift1 from '/src/assets/products/Gifting_Options/IMG-20250924-WA0005.jpg';
+import gift2 from '/src/assets/products/Gifting_Options/IMG-20250924-WA0011.jpg';
+import gift3 from '/src/assets/products/Gifting_Options/IMG-20250924-WA0013.jpg';
+
 export const localCategories = [
   {
     id: 1,
     name: 'Paithani Theme Based Painting',
     description: 'Beautiful paintings inspired by Paithani silk sarees',
-    image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0006.jpg',
+    image: paithani1,
     products: [
       {
         id: 'prod1',
         name: 'Traditional Paithani Art',
         description: 'Beautiful traditional Paithani painting with intricate details',
         price: '₹12,500',
-        image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0006.jpg',
+        image: paithani1,
         category: 'Paithani Theme Based Painting',
         inStock: true
       },
@@ -20,7 +34,7 @@ export const localCategories = [
         name: 'Modern Paithani Fusion',
         description: 'Contemporary take on traditional Paithani patterns',
         price: '₹8,900',
-        image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0009.jpg',
+        image: paithani2,
         category: 'Paithani Theme Based Painting',
         inStock: true
       },
@@ -29,7 +43,7 @@ export const localCategories = [
         name: 'Royal Paithani Elegance',
         description: 'Elegant royal-themed Paithani painting',
         price: '₹14,200',
-        image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0012.jpg',
+        image: paithani3,
         category: 'Paithani Theme Based Painting',
         inStock: true
       },
@@ -38,7 +52,7 @@ export const localCategories = [
         name: 'Contemporary Paithani Design',
         description: 'Modern interpretation of traditional Paithani patterns',
         price: '₹11,800',
-        image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0018.jpg',
+        image: paithani4,
         category: 'Paithani Theme Based Painting',
         inStock: true
       }
@@ -49,14 +63,14 @@ export const localCategories = [
     id: 2,
     name: 'Canvas Painting',
     description: 'Oil, Acrylic, and 3D Acrylic paintings on canvas',
-    image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+    image: canvas1,
     products: [
       {
         id: 'prod3',
         name: 'Abstract Canvas Art',
         description: 'Vibrant abstract painting on canvas with acrylic colors',
         price: '₹7,200',
-        image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+        image: canvas1,
         category: 'Canvas Painting',
         inStock: true
       },
@@ -65,7 +79,7 @@ export const localCategories = [
         name: 'Landscape Canvas',
         description: 'Beautiful landscape painting with nature elements',
         price: '₹9,800',
-        image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+        image: canvas2,
         category: 'Canvas Painting',
         inStock: false
       }
@@ -75,20 +89,20 @@ export const localCategories = [
         id: 'subcat1',
         name: 'Oil Paintings',
         description: 'Traditional oil paintings with rich colors',
-        image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+        image: canvas2,
         products: [
           {
             id: 'prod9',
             name: 'Classic Landscape Oil',
             price: '₹12,500',
-            image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+            image: canvas2,
             description: 'Traditional oil painting with classic landscape elements'
           },
           {
             id: 'prod10',
             name: 'Portrait in Oil',
             price: '₹9,800',
-            image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+            image: canvas2,
             description: 'Beautiful portrait painted in traditional oil technique'
           }
         ]
@@ -97,20 +111,20 @@ export const localCategories = [
         id: 'subcat2',
         name: 'Acrylic Paintings',
         description: 'Vibrant acrylic paintings on canvas',
-        image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+        image: canvas1,
         products: [
           {
             id: 'prod11',
             name: 'Abstract Acrylic',
             price: '₹7,200',
-            image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+            image: canvas1,
             description: 'Vibrant abstract painting with bold acrylic colors'
           },
           {
             id: 'prod12',
             name: 'Nature Acrylic',
             price: '₹8,500',
-            image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+            image: canvas1,
             description: 'Colorful nature scene painted with acrylic colors'
           }
         ]
@@ -121,14 +135,14 @@ export const localCategories = [
     id: 3,
     name: 'Texture Wall Art',
     description: 'Three-dimensional wall art with rich textures',
-    image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0007.jpg',
+    image: texture1,
     products: [
       {
         id: 'prod5',
         name: 'Textured Stone Art',
         description: 'Three-dimensional artwork with stone texture effect',
         price: '₹15,000',
-        image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0007.jpg',
+        image: texture1,
         category: 'Texture Wall Art',
         inStock: true
       },
@@ -137,7 +151,7 @@ export const localCategories = [
         name: 'Metallic Texture Piece',
         description: 'Contemporary wall art with metallic texture',
         price: '₹11,500',
-        image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0010.jpg',
+        image: texture2,
         category: 'Texture Wall Art',
         inStock: true
       },
@@ -146,7 +160,7 @@ export const localCategories = [
         name: 'Wood Texture Art',
         description: 'Beautiful wall art with realistic wood texture',
         price: '₹12,800',
-        image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0014.jpg',
+        image: texture3,
         category: 'Texture Wall Art',
         inStock: true
       },
@@ -155,7 +169,7 @@ export const localCategories = [
         name: 'Marble Finish Wall Art',
         description: 'Elegant marble texture finish wall artwork',
         price: '₹14,500',
-        image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0017.jpg',
+        image: texture4,
         category: 'Texture Wall Art',
         inStock: true
       }
@@ -166,14 +180,14 @@ export const localCategories = [
     id: 4,
     name: 'Gifting Options',
     description: 'Perfect art pieces for special occasions',
-    image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0005.jpg',
+    image: gift1,
     products: [
       {
         id: 'prod7',
         name: 'Festive Art Gift',
         description: 'Perfect art piece for festive gifting',
         price: '₹5,500',
-        image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0005.jpg',
+        image: gift1,
         category: 'Gifting Options',
         inStock: true
       },
@@ -182,7 +196,7 @@ export const localCategories = [
         name: 'Wedding Collection',
         description: 'Elegant art piece for wedding gifts',
         price: '₹13,200',
-        image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0011.jpg',
+        image: gift2,
         category: 'Gifting Options',
         inStock: true
       },
@@ -191,7 +205,7 @@ export const localCategories = [
         name: 'Corporate Gifting Set',
         description: 'Professional art pieces perfect for corporate gifting',
         price: '₹9,800',
-        image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0013.jpg',
+        image: gift3,
         category: 'Gifting Options',
         inStock: true
       }
@@ -206,7 +220,7 @@ export const localProducts = [
     name: 'Traditional Paithani Art',
     description: 'Beautiful traditional Paithani painting with intricate details',
     price: '₹12,500',
-    image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0006.jpg',
+    image: paithani1,
     category: 'Paithani Theme Based Painting',
     inStock: true
   },
@@ -215,7 +229,7 @@ export const localProducts = [
     name: 'Modern Paithani Fusion',
     description: 'Contemporary take on traditional Paithani patterns',
     price: '₹8,900',
-    image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0009.jpg',
+    image: paithani2,
     category: 'Paithani Theme Based Painting',
     inStock: true
   },
@@ -224,7 +238,7 @@ export const localProducts = [
     name: 'Abstract Canvas Art',
     description: 'Vibrant abstract painting on canvas with acrylic colors',
     price: '₹7,200',
-    image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+    image: canvas1,
     category: 'Canvas Painting',
     inStock: true
   },
@@ -233,7 +247,7 @@ export const localProducts = [
     name: 'Landscape Canvas',
     description: 'Beautiful landscape painting with nature elements',
     price: '₹9,800',
-    image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+    image: canvas2,
     category: 'Canvas Painting',
     inStock: false
   },
@@ -242,7 +256,7 @@ export const localProducts = [
     name: 'Textured Stone Art',
     description: 'Three-dimensional artwork with stone texture effect',
     price: '₹15,000',
-    image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0007.jpg',
+    image: texture1,
     category: 'Texture Wall Art',
     inStock: true
   },
@@ -251,7 +265,7 @@ export const localProducts = [
     name: 'Metallic Texture Piece',
     description: 'Contemporary wall art with metallic texture',
     price: '₹11,500',
-    image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0010.jpg',
+    image: texture2,
     category: 'Texture Wall Art',
     inStock: true
   },
@@ -260,7 +274,7 @@ export const localProducts = [
     name: 'Festive Art Gift',
     description: 'Perfect art piece for festive gifting',
     price: '₹5,500',
-    image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0005.jpg',
+    image: gift1,
     category: 'Gifting Options',
     inStock: true
   },
@@ -269,7 +283,7 @@ export const localProducts = [
     name: 'Wedding Collection',
     description: 'Elegant art piece for wedding gifts',
     price: '₹13,200',
-    image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0011.jpg',
+    image: gift2,
     category: 'Gifting Options',
     inStock: true
   },
@@ -277,7 +291,7 @@ export const localProducts = [
     id: 'prod9',
     name: 'Classic Landscape Oil',
     price: '₹12,500',
-    image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+    image: canvas2,
     description: 'Traditional oil painting with classic landscape elements',
     category: 'Canvas Painting',
     inStock: true
@@ -286,7 +300,7 @@ export const localProducts = [
     id: 'prod10',
     name: 'Portrait in Oil',
     price: '₹9,800',
-    image: '/src/assets/products/Canvas_Painting/Oil_Paintings/IMG-20250924-WA0008.jpg',
+    image: canvas2,
     description: 'Beautiful portrait painted in traditional oil technique',
     category: 'Canvas Painting',
     inStock: true
@@ -295,7 +309,7 @@ export const localProducts = [
     id: 'prod11',
     name: 'Abstract Acrylic',
     price: '₹7,200',
-    image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+    image: canvas1,
     description: 'Vibrant abstract painting with bold acrylic colors',
     category: 'Canvas Painting',
     inStock: true
@@ -304,7 +318,7 @@ export const localProducts = [
     id: 'prod12',
     name: 'Nature Acrylic',
     price: '₹8,500',
-    image: '/src/assets/products/Canvas_Painting/Acrylic_Paintings/IMG-20250924-WA0015.jpg',
+    image: canvas1,
     description: 'Colorful nature scene painted with acrylic colors',
     category: 'Canvas Painting',
     inStock: true
@@ -314,7 +328,7 @@ export const localProducts = [
     name: 'Royal Paithani Elegance',
     description: 'Elegant royal-themed Paithani painting',
     price: '₹14,200',
-    image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0012.jpg',
+    image: paithani3,
     category: 'Paithani Theme Based Painting',
     inStock: true
   },
@@ -323,7 +337,7 @@ export const localProducts = [
     name: 'Contemporary Paithani Design',
     description: 'Modern interpretation of traditional Paithani patterns',
     price: '₹11,800',
-    image: '/src/assets/products/Paithani_Theme_Based_Painting/IMG-20250924-WA0018.jpg',
+    image: paithani4,
     category: 'Paithani Theme Based Painting',
     inStock: true
   },
@@ -332,7 +346,7 @@ export const localProducts = [
     name: 'Wood Texture Art',
     description: 'Beautiful wall art with realistic wood texture',
     price: '₹12,800',
-    image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0014.jpg',
+    image: texture3,
     category: 'Texture Wall Art',
     inStock: true
   },
@@ -341,7 +355,7 @@ export const localProducts = [
     name: 'Marble Finish Wall Art',
     description: 'Elegant marble texture finish wall artwork',
     price: '₹14,500',
-    image: '/src/assets/products/Texture_Wall_Art/IMG-20250924-WA0017.jpg',
+    image: texture4,
     category: 'Texture Wall Art',
     inStock: true
   },
@@ -350,7 +364,7 @@ export const localProducts = [
     name: 'Corporate Gifting Set',
     description: 'Professional art pieces perfect for corporate gifting',
     price: '₹9,800',
-    image: '/src/assets/products/Gifting_Options/IMG-20250924-WA0013.jpg',
+    image: gift3,
     category: 'Gifting Options',
     inStock: true
   }
