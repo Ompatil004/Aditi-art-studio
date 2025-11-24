@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Toast } from 'react-bootstrap';
 import { useCategories } from '../context/CategoriesContext';
 import { useCart } from '../context/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Shop = () => {
   const { categories, loading, error } = useCategories();
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -180,15 +181,15 @@ const Shop = () => {
                                   +
                                 </Button>
                               </div>
-                              <Button
+                                <Button
                                 variant={addedToCart[product.id] ? "primary" : "outline-primary"}
                                 size="sm"
                                 onClick={() => {
-                                  if (addedToCart[product.id]) {
-                                    window.location.href = '/cart';
-                                  } else {
-                                    handleAddToCart(product);
-                                  }
+                                    if (addedToCart[product.id]) {
+                                      navigate('/cart');
+                                    } else {
+                                      handleAddToCart(product);
+                                    }
                                 }}
                               >
                                 {addedToCart[product.id] ? 'Go to Cart' : 'Add to Cart'}
@@ -278,7 +279,7 @@ const Shop = () => {
                                       size="sm"
                                       onClick={() => {
                                         if (addedToCart[product.id]) {
-                                          window.location.href = '/cart';
+                                          navigate('/cart');
                                         } else {
                                           handleAddToCart(product);
                                         }

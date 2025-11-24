@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Toast } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import { useCategories } from '../context/CategoriesContext';
@@ -9,6 +9,7 @@ const SubCategoryPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
   const { categories } = useCategories(); // Use categories from context
+  const navigate = useNavigate();
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -172,8 +173,8 @@ const SubCategoryPage = () => {
                     }}
                     onClick={() => {
                       if (addedToCart[product.id]) {
-                        // If product was added, navigate to cart
-                        window.location.href = '/cart';
+                        // If product was added, navigate to cart (client-side)
+                        navigate('/cart');
                       } else {
                         handleAddToCart(product);
                       }
