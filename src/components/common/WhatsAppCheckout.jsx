@@ -57,7 +57,7 @@ Total: ₹${getTotalPrice()}
 Please confirm my order.`;
 
     // ✅ Encode & Redirect to WhatsApp
-    const encodedMessage = encodeURIComponent(message);
+    const encodedMessage = encodeURIComponent(message).replace(/\n/g, '%0A').trim();
     const sellerPhoneNumber = "919511801233"; // ✅ Updated seller’s WhatsApp number
     window.open(`https://wa.me/${sellerPhoneNumber}?text=${encodedMessage}`, "_blank");
   };
