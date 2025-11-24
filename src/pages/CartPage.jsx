@@ -111,7 +111,7 @@ const CartPage = () => {
                           <Card.Img
                             src={item.image}
                             style={{
-                              height: '100px',
+                              height: '150px',
                               width: '100%',
                               objectFit: 'cover',
                               borderRadius: '8px'
