@@ -1,10 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Spinner, Toast } from 'react-bootstrap';
 import { useCategories } from '../context/CategoriesContext';
+import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
 const Shop = () => {
   const { categories, loading, error } = useCategories();
+  const { addToCart } = useCart();
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [quantities, setQuantities] = useState({});
+  const [addedToCart, setAddedToCart] = useState({});
+
+  const updateQuantity = (productId, amount) => {
+    setQuantities(prev => {
+      const newQty = Math.max(1, (prev[productId] || 1) + amount);
+      return { ...prev, [productId]: newQty };
+    });
+  };
+
+  const resetQuantity = (productId) => {
+    setQuantities(prev => {
+      const newQuantities = { ...prev };
+      delete newQuantities[productId];
+      return newQuantities;
+    });
+  };
+
+  const handleAddToCart = (product) => {
+    const qty = quantities[product.id] || 1;
+    // Add the product multiple times according to the selected quantity
+    for (let i = 0; i < qty; i++) {
+      addToCart(product);
+    }
+    setToastMessage(`${qty} x ${product.name} added to cart!`);
+    setShowToast(true);
+    resetQuantity(product.id); // Reset quantity after adding to cart
+    setAddedToCart(prev => ({ ...prev, [product.id]: true })); // Mark product as added to cart
+    // Auto-hide the toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   if (loading) {
     return (
@@ -101,14 +137,61 @@ const Shop = () => {
                             {product.description ? product.description.substring(0, 100) + '...' : 'Beautiful hand-painted artwork'}
                           </Card.Text>
                           <div className="mt-auto">
-                            <div className="d-flex justify-content-between align-items-center">
+                            <div className="d-flex align-items-center justify-content-between mb-2">
                               <span className="h5 text-primary">{product.price}</span>
-                              <Button 
-                                variant="outline-primary" 
+                            </div>
+                            <div className="d-flex align-items-center justify-content-between">
+                              <div className="d-flex align-items-center">
+                                <Button
+                                  variant="outline-secondary"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    updateQuantity(product.id, -1);
+                                  }}
+                                  style={{
+                                    borderRadius: '50%',
+                                    width: '30px',
+                                    height: '30px',
+                                    padding: '0',
+                                    fontSize: '0.9rem'
+                                  }}
+                                >
+                                  -
+                                </Button>
+                                <span className="mx-2">
+                                  {quantities[product.id] || 1}
+                                </span>
+                                <Button
+                                  variant="outline-secondary"
+                                  size="sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    updateQuantity(product.id, 1);
+                                  }}
+                                  style={{
+                                    borderRadius: '50%',
+                                    width: '30px',
+                                    height: '30px',
+                                    padding: '0',
+                                    fontSize: '0.9rem'
+                                  }}
+                                >
+                                  +
+                                </Button>
+                              </div>
+                              <Button
+                                variant={addedToCart[product.id] ? "primary" : "outline-primary"}
                                 size="sm"
-                                disabled={true} // Temporarily disabled since we don't have individual product pages
+                                onClick={() => {
+                                  if (addedToCart[product.id]) {
+                                    window.location.href = '/cart';
+                                  } else {
+                                    handleAddToCart(product);
+                                  }
+                                }}
                               >
-                                View Details
+                                {addedToCart[product.id] ? 'Go to Cart' : 'Add to Cart'}
                               </Button>
                             </div>
                           </div>
@@ -147,14 +230,61 @@ const Shop = () => {
                                   {product.description ? product.description.substring(0, 100) + '...' : 'Beautiful hand-painted artwork'}
                                 </Card.Text>
                                 <div className="mt-auto">
-                                  <div className="d-flex justify-content-between align-items-center">
+                                  <div className="d-flex align-items-center justify-content-between mb-2">
                                     <span className="h5 text-primary">{product.price}</span>
-                                    <Button 
-                                      variant="outline-primary" 
+                                  </div>
+                                  <div className="d-flex align-items-center justify-content-between">
+                                    <div className="d-flex align-items-center">
+                                      <Button
+                                        variant="outline-secondary"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          updateQuantity(product.id, -1);
+                                        }}
+                                        style={{
+                                          borderRadius: '50%',
+                                          width: '30px',
+                                          height: '30px',
+                                          padding: '0',
+                                          fontSize: '0.9rem'
+                                        }}
+                                      >
+                                        -
+                                      </Button>
+                                      <span className="mx-2">
+                                        {quantities[product.id] || 1}
+                                      </span>
+                                      <Button
+                                        variant="outline-secondary"
+                                        size="sm"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          updateQuantity(product.id, 1);
+                                        }}
+                                        style={{
+                                          borderRadius: '50%',
+                                          width: '30px',
+                                          height: '30px',
+                                          padding: '0',
+                                          fontSize: '0.9rem'
+                                        }}
+                                      >
+                                        +
+                                      </Button>
+                                    </div>
+                                    <Button
+                                      variant={addedToCart[product.id] ? "primary" : "outline-primary"}
                                       size="sm"
-                                      disabled={true} // Temporarily disabled since we don't have individual product pages
+                                      onClick={() => {
+                                        if (addedToCart[product.id]) {
+                                          window.location.href = '/cart';
+                                        } else {
+                                          handleAddToCart(product);
+                                        }
+                                      }}
                                     >
-                                      View Details
+                                      {addedToCart[product.id] ? 'Go to Cart' : 'Add to Cart'}
                                     </Button>
                                   </div>
                                 </div>
@@ -171,6 +301,27 @@ const Shop = () => {
           </div>
         );
       })}
+      {/* Toast notification for add to cart */}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        delay={3000}
+        autohide
+        style={{
+          position: 'fixed',
+          top: 20,
+          right: 20,
+          zIndex: 1000,
+          minWidth: '250px'
+        }}
+      >
+        <Toast.Header style={{ backgroundColor: '#80A1D4', color: '#333333' }}>
+          <strong className="me-auto">Cart Update</strong>
+        </Toast.Header>
+        <Toast.Body style={{ backgroundColor: '#F7F4EA', color: '#333333' }}>
+          {toastMessage}
+        </Toast.Body>
+      </Toast>
     </Container>
   );
 };

@@ -8,6 +8,7 @@ body {
   font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
   overflow-x: hidden;
   color: #ffffff;
+  line-height: 1.6;
 }
 
 #root {
@@ -29,10 +30,22 @@ a:hover {
   border-radius: 30px !important;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
+  padding: 0.5rem 1.2rem !important;
+  font-size: 0.9rem;
 }
 
 .btn:focus {
   box-shadow: none !important;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem !important;
+  font-size: 1rem;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem !important;
+  font-size: 0.8rem;
 }
 
 .card {
@@ -73,17 +86,218 @@ a:hover {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  .display-3 {
-    font-size: 2.5rem;
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  body {
+    font-size: 14px;
   }
-  
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    padding: 0.4rem 1rem !important;
+    font-size: 0.8rem;
+  }
+
+  .container,
+  .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .display-3 {
+    font-size: 1.8rem;
+  }
+
+  .display-4 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .section-padding {
+    padding: 2rem 0;
+  }
+
+  .navbar-brand span {
+    font-size: 1rem !important;
+  }
+
+  .navbar-brand img {
+    height: 35px !important;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .display-3 {
+    font-size: 2rem;
+  }
+
+  .display-4 {
+    font-size: 1.7rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .display-3 {
+    font-size: 2.2rem;
+  }
+
+  .display-4 {
+    font-size: 1.8rem;
+  }
+
+  .btn-lg {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .display-3 {
+    font-size: 2.4rem;
+  }
+
   .display-4 {
     font-size: 2rem;
   }
-  
-  .btn-lg {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .display-3 {
+    font-size: 2.8rem;
   }
+
+  .display-4 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Common responsive utilities */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.mt-5,
+.my-5 {
+  margin-top: 2rem !important;
+}
+
+.mb-5,
+.my-5 {
+  margin-bottom: 2rem !important;
+}
+
+.pt-5,
+.py-5 {
+  padding-top: 2rem !important;
+}
+
+.pb-5,
+.py-5 {
+  padding-bottom: 2rem !important;
+}
+
+/* Specific component adjustments for mobile */
+.carousel {
+  margin-bottom: 1.5rem;
+}
+
+.carousel-item {
+  min-height: 200px;
+}
+
+.list-group-item {
+  padding: 0.75rem 1rem;
+}
+
+.form-control {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Footer specific mobile styles */
+footer .row > div {
+  margin-bottom: 1.5rem;
+}
+
+footer .row > div:last-child {
+  margin-bottom: 0;
+}
+
+/* Product card adjustments */
+.card-title {
+  font-size: 1rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+}
+
+/* Navigation specific adjustments */
+.navbar-toggler {
+  border: none !important;
+  outline: none !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+/* Adjust for touch targets */
+.btn, .btn-link, .nav-link, a {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

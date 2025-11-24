@@ -60,7 +60,10 @@ const CartPage = () => {
 
     // Open WhatsApp with order details
     const phoneNumber = '919511801233'; // Your seller number
-    const encodedMessage = encodeURIComponent(message);
+
+    // Properly encode the message for WhatsApp
+    const encodedMessage = encodeURIComponent(message).replace(/\n/g, '%0A').trim();
+
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
 
     // Clear cart after checkout

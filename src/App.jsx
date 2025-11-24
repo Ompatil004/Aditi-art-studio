@@ -19,7 +19,7 @@ function App() {
             flexDirection: 'column'
           }}>
             <Navigation />
-            <div style={{ flex: 1, paddingTop: '70px' }}>
+            <div style={{ flex: 1, paddingTop: '70px', width: '100%', overflowX: 'hidden' }}>
               <AppRoutes />
             </div>
             <Footer />
