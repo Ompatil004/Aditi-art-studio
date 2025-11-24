@@ -55,6 +55,18 @@ const cartReducer = (state, action) => {
   }
 };
 
+// Function to migrate old image paths to new paths
+const migrateImagePaths = (items) => {
+  return items.map(item => {
+    if (item.image && typeof item.image === 'string' && item.image.includes('/src/assets/products/')) {
+      // Convert old path to new path
+      const newPath = item.image.replace('/src/assets/products/', '/products/');
+      return { ...item, image: newPath };
+    }
+    return item;
+  });
+};
+
 // Load cart items from localStorage on initial load
 const loadCartFromStorage = () => {
   try {
@@ -62,7 +74,10 @@ const loadCartFromStorage = () => {
     if (serializedState === null) {
       return { items: [] };
     }
-    return JSON.parse(serializedState);
+    const state = JSON.parse(serializedState);
+    // Migrate old image paths to new paths
+    const migratedItems = migrateImagePaths(state.items);
+    return { items: migratedItems };
   } catch (error) {
     console.error('Error loading cart from storage', error);
     return { items: [] };
